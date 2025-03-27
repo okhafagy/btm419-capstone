@@ -4,8 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import SignupForm, LoginForm, ProductForm
 from django.contrib import messages
 from .models import Product
-
-#testing branch
+from django.contrib.auth import logout
 
 # Login view
 def login_view(request):
@@ -46,7 +45,7 @@ def signup(request):
 def index(request):
     return render(request, 'dashboard/index.html')
 
-# Contact view (example)
+# Contact view
 def contact(request):
     return render(request, 'dashboard/contact.html')
 
@@ -141,3 +140,18 @@ def warranty_view(request):
         'selected_warranties': selected_warranties,
         'total_price': round(total_price, 2),
     })
+
+# Sales view - displays sales links
+@login_required
+def inventory(request):
+    return render(request, 'dashboard/inventory.html')
+
+# Sales view - displays sales links
+@login_required
+def claims(request):
+    return render(request, 'dashboard/claims.html')
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('dashboard:login')

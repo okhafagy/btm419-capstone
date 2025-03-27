@@ -7,10 +7,10 @@
     <!-- Sidebar Section -->
     <div class="w-1/5 bg-gray-800 text-white p-6">
         <div class="flex flex-col">
-            <h3 class="text-2xl font-semibold mb-8">Welcome, {{ request.user.username }}</h3>
+            <h3 class="text-2xl font-semibold mb-8">Welcome, Jeff Marsh</h3>
             <ul>
                 <li class="mb-4">
-                    <a href="{% url 'dashboard:index' %}" class="text-lg hover:underline">Dashboard</a>
+                    <a href="{% url 'dashboard:index' %}" class="text-lg hover:underline font-bold text-blue-400">Dashboard</a>
                 </li>
                 <li class="mb-4">
                     <a href="{% url 'dashboard:sales' %}" class="text-lg hover:underline">Sales</a>
@@ -19,10 +19,10 @@
                     <a href="#" class="text-lg hover:underline">Dealerships</a>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="text-lg hover:underline">Inventory</a>
+                    <a href="{% url 'dashboard:inventory' %}" class="text-lg hover:underline">Inventory</a>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="text-lg hover:underline">Claims Processing</a>
+                    <a href="{% url 'dashboard:claims' %}" class="text-lg hover:underline">Claims Processing</a>
                 </li>
                 <li class="mb-4">
                     <a href="#" class="text-lg hover:underline">Calendar</a>
@@ -79,21 +79,30 @@
             <table class="table-auto w-full text-left">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2">Market Location</th>
+                        <th class="px-4 py-2">Dealership Name</th>
+                        <th class="px-4 py-2">Region</th>
                         <th class="px-4 py-2">Total Sales</th>
                         <th class="px-4 py-2">Performance</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td class="px-4 py-2">Mississauga</td>
                         <td class="px-4 py-2">Ontario</td>
                         <td class="px-4 py-2">41</td>
                         <td class="px-4 py-2 text-green-600">+100%</td>
                     </tr>
                     <tr>
+                        <td class="px-4 py-2">Lachute</td>
                         <td class="px-4 py-2">Quebec</td>
                         <td class="px-4 py-2">29</td>
                         <td class="px-4 py-2 text-green-600">+95%</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">Makernan</td>
+                        <td class="px-4 py-2">Edmonton</td>
+                        <td class="px-4 py-2">24</td>
+                        <td class="px-4 py-2 text-green-600">+89%</td>
                     </tr>
                 </tbody>
             </table>

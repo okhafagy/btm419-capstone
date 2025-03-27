@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 
 LOGIN_URL = 'dashboard:login'
 LOGIN_REDIRECT_URL = 'dashboard:dashboard'
-LOGOUT_REDIRECT_URL = 'dashboard:login'
+LOGOUT_REDIRECT_URL = 'reverse()'
 # Application definition
 
 INSTALLED_APPS = [

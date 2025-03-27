@@ -1,0 +1,138 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Inventory Dashboard{% endblock %}
+
+{% block content %}
+<div class="flex">
+    <!-- Sidebar Section -->
+    <div class="w-1/5 bg-gray-800 text-white p-6 min-h-screen">
+        <div class="flex flex-col">
+            <h3 class="text-2xl font-semibold mb-8">Welcome, Jeff Marsh</h3>
+            <ul>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:index' %}" class="text-lg hover:underline ">Dashboard</a>
+                </li>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:sales' %}" class="text-lg hover:underline ">Sales</a>
+                </li>
+                <li class="mb-4">
+                    <a href="#" class="text-lg hover:underline">Dealerships</a>
+                </li>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:inventory' %}" class="text-lg hover:underline font-bold text-blue-400">Inventory</a>
+                </li>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:claims' %}" class="text-lg hover:underline ">Claims Processing</a>
+                </li>
+                <li class="mb-4">
+                    <a href="#" class="text-lg hover:underline">Calendar</a>
+                </li>
+                <li class="mt-8 border-t border-gray-600 pt-4">
+                    <a href="{% url 'dashboard:logout' %}" class="text-lg hover:underline">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="w-4/5 p-6 bg-gray-100 min-h-screen">
+        <h1 class="text-3xl font-semibold text-blue-700 mb-6">Inventory Management</h1>
+
+        <!-- Inventory Table -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Current Inventory Status</h2>
+            <table class="w-full table-auto text-left border-collapse">
+                <thead class="text-gray-700 font-semibold">
+                    <tr class="border-b border-gray-300">
+                        <th class="p-2">Product Name</th>
+                        <th class="p-2">Category</th>
+                        <th class="p-2">Current Stock</th>
+                        <th class="p-2">Status</th>
+                        <th class="p-2">Last Restock</th>
+                        <th class="p-2">Reorder Needed?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b">
+                        <td class="p-2">Rust Protection</td>
+                        <td class="p-2">Add-on Service</td>
+                        <td class="p-2 font-semibold">120 units</td>
+                        <td class="p-2 text-green-600 font-semibold">In Stock ✅</td>
+                        <td class="p-2">Jan 10, 2025</td>
+                        <td class="p-2 text-green-500 font-semibold">No</td>
+                    </tr>
+                    <tr class="border-b">
+                        <td class="p-2">Fabric Protection</td>
+                        <td class="p-2">Add-On Service</td>
+                        <td class="p-2 font-semibold">30 units</td>
+                        <td class="p-2 text-yellow-600 font-semibold">Low Stock ⚠️</td>
+                        <td class="p-2">Dec 20, 2024</td>
+                        <td class="p-2 text-red-600 font-semibold">Yes <span class="underline font-bold">Reorder now</span></td>
+                    </tr>
+                    <tr class="border-b">
+                        <td class="p-2">Paint Protection</td>
+                        <td class="p-2">Coating Service</td>
+                        <td class="p-2 font-semibold">0 units</td>
+                        <td class="p-2 text-red-600 font-semibold">Out of Stock 🔴</td>
+                        <td class="p-2">Nov 15, 2024</td>
+                        <td class="p-2 text-red-600 font-semibold">Yes <span class="underline font-bold">(Urgent ⚠️)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="p-2">VIN Etching</td>
+                        <td class="p-2">Coating Service</td>
+                        <td class="p-2 font-semibold">50 units</td>
+                        <td class="p-2 text-green-600 font-semibold">In Stock ✅</td>
+                        <td class="p-2">Jan 5, 2024</td>
+                        <td class="p-2 text-green-500 font-semibold">No</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 2: Order New Inventory -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Order New Inventory</h2>
+            <form method="POST" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label class="block font-medium text-gray-700">Item Name</label>
+                    <input type="text" name="item_name" class="w-full border border-gray-300 p-2 rounded" placeholder="e.g. Oil Filter">
+                </div>
+                <div>
+                    <label class="block font-medium text-gray-700">Quantity</label>
+                    <input type="number" name="quantity" min="1" class="w-full border border-gray-300 p-2 rounded">
+                </div>
+                <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700">Place Order</button>
+            </form>
+        </div>
+
+        <!-- Section 3: Process Delivery Orders -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Process Delivery Orders</h2>
+            <table class="table-auto w-full text-left border mb-4">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 border">Order ID</th>
+                        <th class="px-4 py-2 border">Item</th>
+                        <th class="px-4 py-2 border">Destination</th>
+                        <th class="px-4 py-2 border">Status</th>
+                        <th class="px-4 py-2 border">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows -->
+                    <tr>
+                        <td class="px-4 py-2 border">INV12345</td>
+                        <td class="px-4 py-2 border">Oil Filter</td>
+                        <td class="px-4 py-2 border">Mississauga Branch</td>
+                        <td class="px-4 py-2 border text-yellow-600">Ready to Ship</td>
+                        <td class="px-4 py-2 border">
+                            <button class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-700">Mark as Shipped</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
