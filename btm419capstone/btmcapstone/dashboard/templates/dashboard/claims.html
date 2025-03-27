@@ -5,104 +5,116 @@
 {% block content %}
 <div class="flex">
     <!-- Sidebar -->
-    <div class="w-1/5 bg-gray-800 text-white p-6">
+    <div class="w-1/5 bg-gray-800 text-white p-6 min-h-screen">
         <h3 class="text-2xl font-semibold mb-8">Welcome, Jeff Marsh</h3>
-        <ul>
-            <li class="mb-4"><a href="{% url 'dashboard:index' %}" class="text-lg hover:underline">Dashboard</a></li>
-            <li class="mb-4"><a href="{% url 'dashboard:sales' %}" class="text-lg hover:underline">Sales</a></li>
-            <li class="mb-4"><a href="#" class="text-lg hover:underline">Dealerships</a></li>
-            <li class="mb-4"><a href="{% url 'dashboard:inventory' %}" class="text-lg hover:underline">Inventory</a></li>
-            <li class="mb-4"><a href="{% url 'dashboard:claims' %}" class="text-lg underline font-bold text-blue-400">Claims</a></li>
-            <li class="mb-4"><a href="#" class="text-lg hover:underline">Calendar</a></li>
-            <li class="mt-8 border-t border-gray-600 pt-4"><a href="{% url 'dashboard:logout' %}" class="text-lg hover:underline">Log Out</a></li>
+        <ul class="space-y-4">
+            <li><a href="{% url 'dashboard:index' %}" class="hover:underline">Dashboard</a></li>
+            <li><a href="{% url 'dashboard:sales' %}" class="hover:underline">Sales</a></li>
+            <li><a href="{% url 'dashboard:inventory' %}" class="hover:underline">Inventory</a></li>
+            <li><a href="{% url 'dashboard:claims' %}" class="hover:underline text-blue-400 font-bold">Claims Processing</a></li>
+            <li><a href="{% url 'dashboard:logout' %}" class="hover:underline border-t pt-4 block">Log Out</a></li>
         </ul>
     </div>
 
-    <!-- Main Content -->
-    <div class="w-4/5 p-6 bg-gray-100">
-        <h1 class="text-4xl font-semibold text-blue-600 mb-6">Claims Dashboard</h1>
+    <!-- Main Section -->
+    <div class="w-4/5 p-6 bg-gray-100 space-y-8 min-h-screen">
+        <h1 class="text-4xl font-semibold text-blue-700">Claims Dashboard</h1>
 
-        <!-- Overview Cards -->
-        <div class="grid grid-cols-4 gap-6 mb-6">
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <h2 class="text-md font-medium">Total Claims Submitted</h2>
-                <p class="text-3xl font-bold">56</p>
-                <p class="text-green-600 text-sm">+10.0%</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <h2 class="text-md font-medium">Average Processing Time</h2>
-                <p class="text-3xl font-bold">6</p>
-                <p class="text-green-600 text-sm">+22.0%</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <h2 class="text-md font-medium">Pending Claims</h2>
-                <p class="text-3xl font-bold">45</p>
-                <p class="text-green-600 text-sm">+12.0%</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <h2 class="text-md font-medium">Rejected Claims</h2>
-                <p class="text-3xl font-bold">11</p>
-                <p class="text-red-600 text-sm">-7.0%</p>
-            </div>
+        <!-- 1. New Claim Request (Customer-Initiated) -->
+        <div class="bg-white p-6 rounded shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Initiate New Claim</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="customer_name" class="border p-2 rounded w-full" placeholder="Customer Name">
+                    <input type="text" name="dealership" class="border p-2 rounded w-full" placeholder="Partner Dealership">
+                    <input type="text" name="product" class="border p-2 rounded w-full" placeholder="Product/Service">
+                    <input type="number" name="claim_amount" class="border p-2 rounded w-full" placeholder="Claim Amount ($)">
+                </div>
+                <div class="mt-4">
+                    <textarea name="description" rows="3" class="w-full border p-2 rounded" placeholder="Describe the issue..."></textarea>
+                </div>
+                <button type="submit" class="mt-4 bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">Submit Claim</button>
+            </form>
         </div>
 
-        <!-- Claims Table -->
-        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h3 class="text-xl font-semibold mb-4">Claims Management</h3>
+        <!-- 2. View & Update Claim Status -->
+        <div class="bg-white p-6 rounded shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Manage Claims</h2>
             <table class="table-auto w-full text-left">
                 <thead>
                     <tr>
                         <th class="px-4 py-2">Claim ID</th>
-                        <th class="px-4 py-2">Customer Name</th>
-                        <th class="px-4 py-2">Dealership</th>
+                        <th class="px-4 py-2">Customer</th>
+                        <th class="px-4 py-2">Product</th>
+                        <th class="px-4 py-2">Amount</th>
                         <th class="px-4 py-2">Status</th>
-                        <th class="px-4 py-2">Submitted</th>
-                        <th class="px-4 py-2">Resolution Date</th>
                         <th class="px-4 py-2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="px-4 py-2">C-1001</td>
+                    <tr class="border-t">
+                        <td class="px-4 py-2">CLM-2001</td>
                         <td class="px-4 py-2">John Doe</td>
-                        <td class="px-4 py-2">Mississauga</td>
-                        <td class="px-4 py-2 text-green-600">Approved ✅</td>
-                        <td class="px-4 py-2">2025-02-20</td>
-                        <td class="px-4 py-2">2025-02-28</td>
-                        <td class="px-4 py-2 text-blue-500 underline">View</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2">C-1002</td>
-                        <td class="px-4 py-2">Emily Smith</td>
-                        <td class="px-4 py-2">Lachute</td>
-                        <td class="px-4 py-2 text-yellow-500">Pending</td>
-                        <td class="px-4 py-2">2025-02-15</td>
-                        <td class="px-4 py-2">2025-02-17</td>
-                        <td class="px-4 py-2 text-blue-500 underline">View</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2">C-1003</td>
-                        <td class="px-4 py-2">Sophia Lee</td>
-                        <td class="px-4 py-2">McKernan</td>
-                        <td class="px-4 py-2 text-red-600">Rejected 🔴</td>
-                        <td class="px-4 py-2">2025-02-18</td>
-                        <td class="px-4 py-2">N/A</td>
-                        <td class="px-4 py-2 text-blue-500 underline">View</td>
+                        <td class="px-4 py-2">Paint Protection</td>
+                        <td class="px-4 py-2">$1800</td>
+                        <td class="px-4 py-2">
+                            <select class="border border-gray-300 rounded p-1 text-sm">
+                                <option>Initiated</option>
+                                <option>Rejected - Warranty Expired</option>
+                                <option>Rejected - Invalid Claim</option>
+                                <option>Additional Info Needed</option>
+                                <option>Paid</option>
+                            </select>
+                        </td>
+                        <td class="px-4 py-2 text-blue-500 underline cursor-pointer">Update</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- Insights -->
-        <div class="grid grid-cols-3 gap-6">
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <h4 class="font-semibold mb-2">Claim Insights Panel</h4>
-                <ul class="text-sm">
-                    <li>⚡ 70% of pending claims exceed the expected resolution time—consider prioritizing.</li>
-                    <li>⚠ 3 claims flagged as possible fraud. Review required.</li>
-                    <li>📈 Approval rate is down 15% this week. Investigate policy changes.</li>
-                </ul>
-            </div>
+        <!-- 3. Inspection Request -->
+        <div class="bg-white p-6 rounded shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Request Inspection</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="claim_id" class="border p-2 rounded w-full" placeholder="Claim ID">
+                    <input type="text" name="assigned_inspector" class="border p-2 rounded w-full" placeholder="Inspector Name">
+                </div>
+                <button type="submit" class="mt-4 bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600">Send Inspection Request</button>
+            </form>
+        </div>
+
+        <!-- 4. View Completed Inspections -->
+        <div class="bg-white p-6 rounded shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Completed Inspections</h2>
+            <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+                <li>
+                    <strong>CLM-1987:</strong> Completed by Inspector Amy Tran. - Notes: “Evidence of rust, claim valid.”
+                    <a href="#" class="ml-2 text-blue-500 hover:underline">View Report</a>
+                </li>
+                <li>
+                    <strong>CLM-1990:</strong> Completed by Inspector Raj Patel. - Notes: “No signs of damage, claim denied.”
+                    <a href="#" class="ml-2 text-blue-500 hover:underline">View Report</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 5. Special Review for High-Value Claims -->
+        <div class="bg-white p-6 rounded shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Senior Manager Review</h2>
+            <p class="text-sm text-gray-600 mb-4">Claims over <strong>$1500</strong> must have 3 repair estimates uploaded for senior manager approval.</p>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="grid grid-cols-3 gap-4">
+                    <input type="text" name="claim_id" class="border p-2 rounded" placeholder="Claim ID">
+                    <input type="file" name="estimate_1" class="border p-2 rounded">
+                    <input type="file" name="estimate_2" class="border p-2 rounded">
+                    <input type="file" name="estimate_3" class="border p-2 rounded">
+                </div>
+                <button type="submit" class="mt-4 bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600">Submit for Manager Review</button>
+            </form>
         </div>
     </div>
 </div>
