@@ -5,6 +5,8 @@ from .forms import SignupForm, LoginForm, ProductForm
 from django.contrib import messages
 from .models import Product
 
+#testing branch
+
 # Login view
 def login_view(request):
     # if request.user.is_authenticated:
