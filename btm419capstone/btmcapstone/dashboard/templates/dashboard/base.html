@@ -35,6 +35,9 @@
             <div class="ml-6">
                 <a href="{% url 'dashboard:signup' %}" class="px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700 hover:underline">Sign Up</a>
                 <a href="{% url 'dashboard:login' %}" class="px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700 hover:underline">Login</a>
+                <!-- Debug: Show the actual URLs -->
+                <p>Login URL: {% url 'dashboard:login' %}</p>
+                <p>Signup URL: {% url 'dashboard:signup' %}</p>
             </div>
         </nav>
         

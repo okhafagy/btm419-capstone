@@ -1,0 +1,41 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Warranty Options{% endblock %}
+
+{% block content %}
+<div class="flex justify-center min-h-screen py-12 px-6 bg-gray-100">
+    <div class="w-full md:w-1/2 p-8 bg-white rounded-lg shadow-md">
+        <h1 class="text-3xl font-semibold mb-4 text-blue-700">Warranty Options</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% for label, details in warranty_options.items %}
+            <div class="mb-4 flex justify-between items-center">
+                <label class="text-lg font-medium text-gray-700">{{ label }}</label>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-600">${{ details.price }}</span>
+                    <input type="checkbox" name="warranty_choices" value="{{ label }}">
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if selected_warranties %}
+                <div class="mb-4 p-4 bg-green-100 rounded">
+                    <p class="text-green-700 font-medium">Selected Warranties:</p>
+                    <ul class="list-disc list-inside">
+                        {% for warranty in selected_warranties %}
+                            <li>{{ warranty }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p class="mt-2 text-green-800 font-semibold">Total: ${{ total_price }}</p>
+                </div>
+            {% endif %}
+
+            <button type="submit" class="py-4 px-8 text-lg bg-blue-500 text-white rounded-xl hover:bg-blue-700 w-full">
+                Submit Warranty Options
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

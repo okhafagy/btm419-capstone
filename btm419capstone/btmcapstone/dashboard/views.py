@@ -7,8 +7,8 @@ from .models import Product
 
 # Login view
 def login_view(request):
-    if request.user.is_authenticated:
-        return redirect('dashboard:index')  # Redirect to index (which has the dashboard)
+    # if request.user.is_authenticated:
+    #     return redirect('dashboard:index')  # Redirect to index (which has the dashboard)
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -29,6 +29,7 @@ def login_view(request):
 
 # Signup view
 def signup(request):
+
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
@@ -113,3 +114,28 @@ def new_product_view(request):
 def product_list_view(request):
     products = Product.objects.all()
     return render(request, 'dashboard/product.html', {'products': products})
+
+@login_required
+def warranty_view(request):
+    warranty_options = {
+        "Rust Protection": {"value": "Rust protection", "price": 199.99},
+        "Fabric Protection": {"value": "Fabric protection", "price": 149.99},
+        "Paint Protection": {"value": "Paint protection", "price": 179.99},
+        "VIN Etching": {"value": "VIN etching", "price": 99.99},
+        "Extended Warranties": {"value": "Extended warranties", "price": 299.99},
+    }
+
+    selected_warranties = []
+    total_price = 0.0
+
+    if request.method == 'POST':
+        selected_warranties = request.POST.getlist('warranty_choices')
+        for item in selected_warranties:
+            if item in warranty_options:
+                total_price += warranty_options[item]["price"]
+
+    return render(request, 'dashboard/warranty.html', {
+        'warranty_options': warranty_options,
+        'selected_warranties': selected_warranties,
+        'total_price': round(total_price, 2),
+    })
