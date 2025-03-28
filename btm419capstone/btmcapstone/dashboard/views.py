@@ -8,9 +8,7 @@ from django.contrib.auth import logout
 
 # Login view
 def login_view(request):
-    # if request.user.is_authenticated:
-    #     return redirect('dashboard:index')  # Redirect to index (which has the dashboard)
-
+    
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -40,8 +38,7 @@ def signup(request):
         form = SignupForm()
     return render(request, 'dashboard/signup.html', {'form': form})
 
-# Dashboard (Index) view - only accessible after logging in
-@login_required
+
 def index(request):
     return render(request, 'dashboard/index.html')
 
@@ -54,30 +51,6 @@ def contact(request):
 def sales(request):
     return render(request, 'dashboard/sales.html')
 
-# Add New Product view
-@login_required
-def add_new_product(request):
-    return render(request, 'dashboard/add_new_product.html')  # Make sure this template exists
-
-# See All Products view
-@login_required
-def see_all_products(request):
-    return render(request, 'dashboard/see_all_products.html')  # Make sure this template exists
-
-# See All Dealerships view
-@login_required
-def see_all_dealerships(request):
-    return render(request, 'dashboard/see_all_dealerships.html')  # Make sure this template exists
-
-# See All Sales view
-@login_required
-def see_all_sales(request):
-    return render(request, 'dashboard/see_all_sales.html')  # Make sure this template exists
-
-# Purchase Fulfillment Status view
-@login_required
-def purchase_fulfillment_status(request):
-    return render(request, 'dashboard/purchase_fulfillment_status.html')  # Make sure this template exists
 
 def new_product(request):
     if request.method == 'POST':
@@ -141,12 +114,12 @@ def warranty_view(request):
         'total_price': round(total_price, 2),
     })
 
-# Sales view - displays sales links
+# inventory view - displays sales links
 @login_required
 def inventory(request):
     return render(request, 'dashboard/inventory.html')
 
-# Sales view - displays sales links
+# claims view - displays sales links
 @login_required
 def claims(request):
     return render(request, 'dashboard/claims.html')
