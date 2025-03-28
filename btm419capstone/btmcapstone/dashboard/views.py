@@ -47,7 +47,6 @@ def contact(request):
     return render(request, 'dashboard/contact.html')
 
 # Sales view - displays sales links
-@login_required
 def sales(request):
     return render(request, 'dashboard/sales.html')
 
@@ -89,7 +88,7 @@ def product_list_view(request):
     products = Product.objects.all()
     return render(request, 'dashboard/product.html', {'products': products})
 
-@login_required
+
 def warranty_view(request):
     warranty_options = {
         "Rust Protection": {"value": "Rust protection", "price": 199.99},
@@ -115,12 +114,12 @@ def warranty_view(request):
     })
 
 # inventory view - displays sales links
-@login_required
+
 def inventory(request):
     return render(request, 'dashboard/inventory.html')
 
 # claims view - displays sales links
-@login_required
+
 def claims(request):
     return render(request, 'dashboard/claims.html')
 
