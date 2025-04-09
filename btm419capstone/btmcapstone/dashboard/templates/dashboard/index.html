@@ -15,20 +15,12 @@
                 <li class="mb-4">
                     <a href="{% url 'dashboard:sales' %}" class="text-lg hover:underline">Sales</a>
                 </li>
+                
                 <li class="mb-4">
-                    <a href="#" class="text-lg hover:underline">Dealerships</a>
+                    <a href="{% url 'dashboard:inventory_log' %}" class="text-lg hover:underline">Inventory</a>
                 </li>
                 <li class="mb-4">
-                    <a href="{% url 'dashboard:inventory' %}" class="text-lg hover:underline">Inventory</a>
-                </li>
-                <li class="mb-4">
-                    <a href="{% url 'dashboard:claims' %}" class="text-lg hover:underline">Claims Processing</a>
-                </li>
-                <li class="mb-4">
-                    <a href="#" class="text-lg hover:underline">Calendar</a>
-                </li>
-                <li class="mt-8 border-t border-gray-600 pt-4">
-                    <a href="{% url 'dashboard:logout' %}" class="text-lg hover:underline">Log Out</a>
+                    <a href="{% url 'dashboard:claims' %}" class="text-lg hover:underline">Claims</a>
                 </li>
             </ul>
         </div>
@@ -61,16 +53,6 @@
                 <p class="text-sm text-red-600">-72.0%</p>
             </div>
         </div>
-
-        <!-- Graph Section -->
-        <div class="mt-10 bg-white p-6 rounded-lg shadow-md">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-semibold">Sales & Inventory Tracking</h3>
-                <span class="text-sm text-gray-500">This Month</span>
-            </div>
-            <canvas id="salesInventoryChart" height="100"></canvas>
-        </div>
-
         
 
         <!-- Table Section -->

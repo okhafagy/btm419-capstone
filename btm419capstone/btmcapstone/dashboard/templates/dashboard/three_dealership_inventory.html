@@ -1,0 +1,103 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Dealership Inventory Overview{% endblock %}
+
+{% block content %}
+<div class="flex">
+    <!-- Sidebar Section -->
+    <div class="w-1/5 bg-gray-800 text-white p-6">
+        <div class="flex flex-col">
+            <h3 class="text-2xl font-semibold mb-8">Welcome, Jeff Marsh</h3>
+            <ul>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:index' %}" class="text-lg hover:underline">Dashboard</a>
+                </li>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:sales' %}" class="text-lg hover:underline text-blue-400 font-bold">Sales</a>
+                </li>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:inventory_log' %}" class="text-lg hover:underline ">Inventory</a>
+                </li>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:claims' %}" class="text-lg hover:underline">Claims</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="w-4/5 p-6 bg-gray-100 min-h-screen">
+        <h1 class="text-4xl font-semibold text-blue-700 mb-6">Dealership Inventory Overview</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Quebec Inventory -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold text-blue-600 mb-4">Quebec</h2>
+                <table class="w-full table-auto border-collapse text-left text-sm">
+                    <thead>
+                        <tr class="border-b font-semibold text-gray-700">
+                            <th class="p-2">Service</th>
+                            <th class="p-2">Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in quebec_inventory %}
+                        <tr class="border-b">
+                            <td class="p-2">{{ item.product }}</td>
+                            <td class="p-2">{{ item.stock }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="2" class="p-4 text-gray-500 text-center">No inventory</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- McKernan Inventory -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold text-blue-600 mb-4">McKernan</h2>
+                <table class="w-full table-auto border-collapse text-left text-sm">
+                    <thead>
+                        <tr class="border-b font-semibold text-gray-700">
+                            <th class="p-2">Service</th>
+                            <th class="p-2">Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in mckernan_inventory %}
+                        <tr class="border-b">
+                            <td class="p-2">{{ item.product }}</td>
+                            <td class="p-2">{{ item.stock }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="2" class="p-4 text-gray-500 text-center">No inventory</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Lachute Inventory -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold text-blue-600 mb-4">Lachute</h2>
+                <table class="w-full table-auto border-collapse text-left text-sm">
+                    <thead>
+                        <tr class="border-b font-semibold text-gray-700">
+                            <th class="p-2">Service</th>
+                            <th class="p-2">Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in lachute_inventory %}
+                        <tr class="border-b">
+                            <td class="p-2">{{ item.product }}</td>
+                            <td class="p-2">{{ item.stock }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="2" class="p-4 text-gray-500 text-center">No inventory</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

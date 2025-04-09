@@ -1,0 +1,62 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}New Purchase{% endblock %}
+
+{% block content %}
+<style>
+    input, select, textarea {
+        border: 1px solid black !important;
+    }
+</style>
+
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="w-1/5 bg-gray-800 text-white p-6">
+        <div class="flex flex-col">
+            <h3 class="text-2xl font-semibold mb-8">Welcome, Jeff Marsh</h3>
+            <ul>
+                <li class="mb-4"><a href="{% url 'dashboard:index' %}" class="text-lg hover:underline">Dashboard</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:sales' %}" class="text-lg hover:underline">Sales</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:inventory_log' %}" class="text-lg hover:underline text-blue-400 font-bold">Inventory</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:claims' %}" class="text-lg hover:underline">Claims</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Form Content -->
+    <div class="bg-white rounded-lg shadow-lg w-4/5 p-6 min-h-screen">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-blue-700 mb-2">Add New Purchase</h1>
+            <p class="text-gray-600">Submit a new inventory purchase to update the stock levels.</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="mb-6 space-x-4">
+            <a href="{% url 'dashboard:inventory_sum' %}" class="text-blue-600 underline hover:text-blue-800">Current Inventory</a>
+            <a href="{% url 'dashboard:inventory_log' %}" class="text-blue-600 underline hover:text-blue-800">Purchase Order Inventory</a>
+            <a href="{% url 'dashboard:remove_purchase' %}" class="text-blue-600 underline hover:text-blue-800">Remove Purchase</a>
+        </div>
+
+        <!-- Form -->
+        <form method="post" class="border p-6 rounded-lg shadow-md space-y-6 bg-gray-50">
+            {% csrf_token %}
+            {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <div class="pt-4 border-t border-gray-200 flex justify-end">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-800 text-white font-semibold py-2 px-6 rounded shadow transition">
+                    + Add Purchase
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

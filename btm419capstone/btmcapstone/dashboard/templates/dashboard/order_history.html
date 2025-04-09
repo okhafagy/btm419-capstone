@@ -1,0 +1,59 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Sales History{% endblock %}
+
+{% block content %}
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="w-1/5 bg-gray-800 text-white p-6">
+        <div class="flex flex-col">
+            <h3 class="text-2xl font-semibold mb-8">Welcome, Jeff Marsh</h3>
+            <ul>
+                <li class="mb-4"><a href="{% url 'dashboard:index' %}" class="text-lg hover:underline">Dashboard</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:sales' %}" class="text-lg font-bold text-blue-400 hover:underline">Sales</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:inventory_log' %}" class="text-lg hover:underline">Inventory</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:claims' %}" class="text-lg hover:underline">Claims</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="w-4/5 p-6 bg-gray-100 min-h-screen">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-semibold text-blue-700">Order History</h1>
+            <a href="{% url 'dashboard:order_inv' %}" class="bg-blue-600 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded">
+                + Add New Sale
+            </a>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            {% if sales %}
+            <table class="w-full table-auto border-collapse text-left text-sm">
+                <thead class="border-b bg-gray-100 text-gray-700 font-semibold">
+                    <tr>
+                        <th class="p-3">Sale Number</th>
+                        <th class="p-3">Dealership</th>
+                        <th class="p-3">Product</th>
+                        <th class="p-3">Quantity</th>
+                        <th class="p-3">Expected Delivery</th>
+                        <th class="p-3">Actual Delivery</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sale in sales %}
+                    <tr class="border-b hover:bg-gray-50 transition">
+                        <td class="p-3 font-medium text-gray-800">{{ sale.sale_number }}</td>
+                        <td class="p-3">{{ sale.dealership }}</td>
+                        <td class="p-3">{{ sale.product }}</td>
+                        <td class="p-3">{{ sale.quantity }}</td>
+                        <td class="p-3">{{ sale.expected_delivery_date }}</td>
+                        <td class="p-3">{{ sale.actual_delivery_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

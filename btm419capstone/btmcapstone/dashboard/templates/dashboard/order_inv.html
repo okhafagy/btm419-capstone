@@ -1,0 +1,94 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Add New Sale{% endblock %}
+
+{% block content %}
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="w-1/5 bg-gray-800 text-white p-6">
+        <h3 class="text-2xl font-semibold mb-8">Welcome, Jeff Marsh</h3>
+        <ul class="space-y-4">
+            <li><a href="{% url 'dashboard:index' %}" class="text-lg hover:underline">Dashboard</a></li>
+            <li><a href="{% url 'dashboard:sales' %}" class="text-lg text-blue-400 font-bold hover:underline">Sales</a></li>
+            <li><a href="{% url 'dashboard:inventory_log' %}" class="text-lg hover:underline">Inventory</a></li>
+            <li><a href="{% url 'dashboard:claims' %}" class="text-lg hover:underline">Claims</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Form Content -->
+    <div class="w-4/5 bg-gray-100 p-8 min-h-screen">
+        <h1 class="text-3xl font-semibold text-blue-700 mb-6">New Sale</h1>
+
+        <form method="post" class="bg-white p-6 rounded-lg shadow-md space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label for="sale_number" class="block text-sm font-medium text-gray-700 mb-1">Sale Number</label>
+                <input type="text" name="sale_number" id="sale_number" required
+                    class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring focus:border-blue-500">
+            </div>
+
+            <div>
+                <label for="dealership" class="block text-sm font-medium text-gray-700 mb-1">Dealership</label>
+                <select name="dealership" id="dealership" required
+                    class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring focus:border-blue-500">
+                    <option value="Quebec" > Quebec </option>
+                    <option value="McKernan"> McKernan </option>
+                    <option value="Lachute"> Lachute </option>
+                </select>
+            </div>
+
+            <div>
+              <label for="product" class="block text-sm font-medium text-gray-700 mb-1">Product</label>
+              <select name="product" id="product" required
+                  class="w-full border border-gray-300 bg-white text-gray-900 rounded px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                  <option value="" disabled selected hidden>Select a product</option>
+                  <option value="Rust Protection">Rust Protection</option>
+                  <option value="Fabric Protection">Fabric Protection</option>
+                  <option value="Paint Protection">Paint Protection</option>
+                  <option value="VIN Etching">VIN Etching</option>
+                  <option value="Extended Warranties">Extended Warranties</option>
+                  <option value="Window Tinting">Window Tinting</option>
+                  <option value="Car Alarms">Car Alarms</option>
+                  <option value="Rear-Seat Entertainment System">Rear-Seat Entertainment System</option>
+                  <option value="Roof Rack">Roof Rack</option>
+                  <option value="Lojack">Lojack</option>
+                  <option value="Gap Insurance">Gap Insurance</option>
+                  <option value="Dent Protection">Dent Protection</option>
+                  <option value="Key Protection">Key Protection</option>
+                  <option value="Nitrogen Filled Tires">Nitrogen Filled Tires</option>
+                  <option value="Financing">Financing</option>
+                  <option value="Tire and Wheel Protection">Tire and Wheel Protection</option>
+                  <option value="Undercoating">Undercoating</option>
+              </select>
+            </div>
+            
+
+            <div>
+                <label for="quantity" class="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
+                <input type="number" name="quantity" id="quantity" required
+                    class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring focus:border-blue-500">
+            </div>
+
+            <div>
+              <label for="expected_delivery_date" class="block text-sm font-medium text-gray-700 mb-1">Date of Order</label>
+              <input type="date" name="expected_delivery_date" id="expected_delivery_date" required
+                     class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring focus:border-blue-500">
+            </div>
+
+            <div class="mt-4">
+              <label for="actual_delivery_date" class="block text-sm font-medium text-gray-700 mb-1">Estimated Delivery Date</label>
+              <input type="date" name="actual_delivery_date" id="actual_delivery_date" required
+                     class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring focus:border-blue-500">
+            </div>
+
+            <div class="text-right">
+                <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-800 text-white font-semibold py-2 px-6 rounded shadow transition">
+                    Add Sale
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

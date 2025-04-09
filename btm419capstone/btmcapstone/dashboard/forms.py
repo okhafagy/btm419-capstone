@@ -1,7 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Product
+from .models import Sale
+
+
+class SaleForm(forms.ModelForm):
+    class Meta:
+        model = Sale
+        fields = ['sale_number', 'dealership', 'product', 'quantity', 'expected_delivery_date', 'actual_delivery_date']
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -36,22 +43,3 @@ class SignupForm(UserCreationForm):
             'class':'w-full py-4 px-6 rounded-xl'
     }))
 
-class ProductForm(forms.Form):
-    product_name = forms.CharField(max_length=255, label="Product Name")
-    price = forms.DecimalField(
-        max_digits=10000, 
-        decimal_places=1, 
-        label="Price",
-        min_value=0,
-        widget=forms.NumberInput(attrs={'placeholder': 'Enter Price ($)', 'step': '1.00'})
-    )
-    
-    product_image = forms.ImageField(label="Product Image")
-
-class ProductForm(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = ['name', 'price', 'image']
-        widgets = {
-            'price': forms.NumberInput(attrs={'step': '0.1'}),
-        }

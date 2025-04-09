@@ -1,0 +1,46 @@
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Inspection Details{% endblock %}
+
+{% block content %}
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="w-1/5 bg-gray-800 text-white p-6">
+        <div class="flex flex-col">
+            <h3 class="text-2xl font-semibold mb-8">Welcome, Jeff Marsh</h3>
+            <ul>
+                <li class="mb-4"><a href="{% url 'dashboard:index' %}" class="text-lg hover:underline">Dashboard</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:sales' %}" class="text-lg hover:underline">Sales</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:inventory_log' %}" class="text-lg hover:underline">Inventory</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:claims' %}" class="text-lg font-bold text-blue-400 hover:underline">Claims</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="w-4/5 p-8 bg-gray-100 min-h-screen">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-semibold text-blue-700">Inspection #{{ inspection.id }}</h1>
+            <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Submitted</span>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6 space-y-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
+                <p><span class="font-semibold">Name:</span> {{ inspection.name }}</p>
+                <p><span class="font-semibold">Car Model:</span> {{ inspection.car_model }}</p>
+                <p><span class="font-semibold">Claim ID:</span> {{ inspection.claim_id }}</p>
+                <p><span class="font-semibold">Warranty ID:</span> {{ inspection.warranty_id }}</p>
+                <p><span class="font-semibold">Dealership:</span> {{ inspection.dealership }}</p>
+                <p><span class="font-semibold">VIN:</span> {{ inspection.VIN }}</p>
+                <p><span class="font-semibold">Date Added:</span> {{ inspection.date_added|date:"Y-m-d H:i" }}</p>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <a href="{% url 'dashboard:list_inspection' %}" class="inline-block bg-blue-600 hover:bg-blue-800 text-white font-semibold py-2 px-6 rounded shadow transition">
+                &larr; Back to Inspection List
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

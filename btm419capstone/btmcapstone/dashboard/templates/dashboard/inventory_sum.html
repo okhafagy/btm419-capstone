@@ -1,0 +1,62 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="w-1/5 bg-gray-800 text-white p-6">
+        <div class="flex flex-col">
+            <h3 class="text-2xl font-semibold mb-8">Welcome, Jeff Marsh</h3>
+            <ul>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:index' %}" class="text-lg hover:underline">Dashboard</a>
+                </li>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:sales' %}" class="text-lg hover:underline">Sales</a>
+                </li>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:inventory_log' %}" class="text-lg hover:underline text-blue-400 font-bold">Inventory</a>
+                </li>
+                <li class="mb-4">
+                    <a href="{% url 'dashboard:claims' %}" class="text-lg hover:underline">Claims</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="w-4/5 p-6 bg-gray-100 min-h-screen">
+        <h1 class="text-3xl font-semibold text-blue-700 mb-6">Current Inventory</h1>
+
+        <!-- Navigation Links -->
+        <div class="mb-6 space-x-4">
+            <a href="{% url 'dashboard:inventory_log' %}" class="text-blue-600 underline hover:text-blue-800">Purchase Order Inventory</a>
+            <a href="{% url 'dashboard:add_purchase' %}" class="text-blue-600 underline hover:text-blue-800">New Purchase</a>
+            <a href="{% url 'dashboard:remove_purchase' %}" class="text-blue-600 underline hover:text-blue-800">Remove Purchase</a>
+        </div>
+
+        <!-- Inventory Sum Table -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <table class="w-full table-auto border-collapse text-left">
+                <thead class="text-gray-700 font-semibold border-b">
+                    <tr>
+                        <th class="p-2">Inventory ID</th>
+                        <th class="p-2">In Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inventory_sum in inventory_sums %}
+                    <tr class="border-b">
+                        <td class="p-2">{{ inventory_sum.inventory_id }}</td>
+                        <td class="p-2">{{ inventory_sum.total_count }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="p-4 text-center text-gray-500">No inventory data available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

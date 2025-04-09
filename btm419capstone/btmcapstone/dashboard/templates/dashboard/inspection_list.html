@@ -1,0 +1,60 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Inspection List{% endblock %}
+
+{% block content %}
+<div class="flex">
+    <!-- Sidebar -->
+    <div class="w-1/5 bg-gray-800 text-white p-6">
+        <div class="flex flex-col">
+            <h3 class="text-2xl font-semibold mb-8">Welcome, Jeff Marsh</h3>
+            <ul>
+                <li class="mb-4"><a href="{% url 'dashboard:index' %}" class="text-lg hover:underline">Dashboard</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:sales' %}" class="text-lg hover:underline">Sales</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:inventory_log' %}" class="text-lg hover:underline">Inventory</a></li>
+                <li class="mb-4"><a href="{% url 'dashboard:claims' %}" class="text-lg font-bold text-blue-400 hover:underline">Claims</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="w-4/5 p-8 bg-gray-100 min-h-screen">
+        <h1 class="text-3xl font-semibold text-blue-700 mb-6">Inspection List</h1>
+
+        {% if inspections %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="bg-white shadow rounded-lg divide-y border border-gray-200">
+                {% for inspection in inspections %}
+                <div class="flex justify-between items-center px-6 py-4 hover:bg-gray-50 transition">
+                    <!-- Left: Inspection Info -->
+                    <div>
+                        <p class="text-base font-semibold text-gray-800">#{{ inspection.id }} - {{ inspection.name }}</p>
+                        <p class="text-sm text-gray-500">Claim ID: {{ inspection.claim_id }}</p>
+                        <p class="text-sm text-gray-500">Created: {{ inspection.date_added|date:"Y-m-d" }}</p>
+                    </div>
+
+                    <!-- Right: Estimated Inspection Date -->
+                    <div class="flex flex-col items-end">
+                        <label for="estimated_date_{{ inspection.id }}" class="text-sm font-medium text-gray-700 mb-1">
+                            Inspection Date
+                        </label>
+                        <div class="flex items-center space-x-2">
+                            <input type="date" name="estimated_date_{{ inspection.id }}" id="estimated_date_{{ inspection.id }}"
+                                   value="{{ inspection.estimated_date|date:'Y-m-d' }}"
+                                   class="border px-3 py-1 rounded text-sm">
+                            <button type="submit" name="update_id" value="{{ inspection.id }}"
+                                    class="bg-blue-600 text-white px-4 py-1 rounded text-sm hover:bg-blue-800 transition">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </form>
+        {% else %}
+        <div class="bg-white p-4 rounded shadow text-gray-600">No inspections available.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
